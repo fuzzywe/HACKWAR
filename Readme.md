@@ -1,12 +1,23 @@
 
-**This is the project that I am most proud of which we named AI response drone for Search and Rescue. I am from kerala, a southern state in India. In 2018, a flood stuck the state resulted in several deaths and 140 people went missing. It was very difficult for the search and rescue to go in person to the affected areas in search of stranded people from the flood. We were also part of support team by provided food and supplies to the affected areas. We were able to understand the difficulties in reaching to the affected area even after several days from the incident. These incidents motivated us to develop our project. The Hexacopter drone was provided with AI capabilities of dectecting humans and animals from an aerial view. The model was trained using Heridal dataset which contained images of human and animals stranded from an aerial view. We used Jetson TX2 an edge based computing device with the Pixhawk Flight Controller which enabled the feature of marking coordinates on map and the drone will hover over the enclosed coordinates and send the GPS coordinates along with live video feed when a human is detected. This enabled Search and rescue team to easily arrive at the area of need without wasting there time by searching for the needy people. Our drone had a high payload capacity of 5kg we utilized it for a hot drop mechanism where some immediate survival kit can be dropped to the located area from the drone so that people can survive till the Search and rescue team arrives. We presented our project in an international project presentation and made it to the finals and represented our college.**
+**This is the project that I am most proud of which we named AI response drone for Search and Rescue. I am from kerala, a southern state in India. In 2018, a flood stuck the state resulted in several deaths and 140 people went missing.**
+
+**It was very difficult for the search and rescue to go in person to the affected areas in search of stranded people from the flood. We were also part of support team by provided food and supplies to the affected areas. We were able to understand the difficulties in reaching to the affected area even after several days from the incident. These incidents motivated us to develop our project.**
+
+**The Hexacopter drone was provided with AI capabilities of dectecting humans and animals from an aerial view. The model was trained using Heridal dataset which contained images of human and animals stranded from an aerial view. We used Jetson TX2 an edge based computing device with the Pixhawk Flight Controller which enabled the feature of marking coordinates on map and the drone will hover over the enclosed coordinates and send the GPS coordinates along with live video feed when a human is detected. This enabled Search and rescue team to easily arrive at the area of need without wasting there time by searching for the needy people. Our drone had a high payload capacity of 5kg we utilized it for a hot drop mechanism where some immediate survival kit can be dropped to the located area from the drone so that people can survive till the Search and rescue team arrives. We presented our project in an international project presentation and made it to the finals and represented our college.**
 
 ![WhatsApp Image 2025-01-23 at 10 30 30_80c29834](https://github.com/user-attachments/assets/de6eac8d-3e90-48cb-b3e4-2100ceff08cc)
 
+![WhatsApp Image 2025-01-23 at 11 06 39_fbb2485d](https://github.com/user-attachments/assets/7b5823d1-d129-491c-aa6c-ae254a21258b)
 
+![WhatsApp Image 2025-01-23 at 11 06 42_ac915f72](https://github.com/user-attachments/assets/bd951c4d-06d0-48bf-b054-bf756bf234ac)
 
 ![WhatsApp Image 2025-01-23 at 10 32 25_9bce04db](https://github.com/user-attachments/assets/14a314ed-916d-4b4d-a22d-159f6605132f)
 
+![WhatsApp Image 2025-01-23 at 11 09 57_567f4d61](https://github.com/user-attachments/assets/314217d3-a853-457f-80fc-56d354e41009)
+
+![WhatsApp Image 2025-01-23 at 11 10 50_c9636fc5](https://github.com/user-attachments/assets/dc502263-002c-40b0-b73f-e5538797740a)
+
+![WhatsApp Image 2025-01-23 at 11 11 17_d758034c](https://github.com/user-attachments/assets/7bec26ad-887a-4205-8ad7-49bc31798810)
 
 
 for easy acess we develop the ANDROID application where people just scan the code and get the requirement items

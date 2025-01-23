@@ -1,0 +1,397 @@
+"use client";
+import React from "react";
+
+function MainComponent() {
+  const [step, setStep] = useState("scan");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [qrData, setQrData] = useState(null);
+  const [qrCodeUrl, setQrCodeUrl] = useState(null);
+  const [droneStatus, setDroneStatus] = useState("preparing");
+  const [estimatedTime, setEstimatedTime] = useState(null);
+  const [scanError, setScanError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [secretCode, setSecretCode] = useState("");
+  const sampleData = [
+    {
+      droneId: "DRONE-2025-001",
+      essentialId: "ESS-MED-001",
+      name: "Emergency Camp A",
+      location: "Flood Zone, Kerala",
+      essentials: [
+        "Emergency Food Packets",
+        "Medical Supplies",
+        "Water Purifiers",
+        "First Aid Kits",
+        "Blankets",
+      ],
+      emergency_type: "Natural Disaster - Flood",
+    },
+    {
+      droneId: "DRONE-2025-002",
+      essentialId: "ESS-SHELTER-001",
+      name: "Relief Center B",
+      location: "Earthquake Area, Gujarat",
+      essentials: [
+        "Medical Equipment",
+        "Emergency Shelter",
+        "Food Rations",
+        "Water Bottles",
+        "Emergency Lights",
+      ],
+      emergency_type: "Natural Disaster - Earthquake",
+    },
+    {
+      droneId: "DRONE-2025-003",
+      essentialId: "ESS-MIL-001",
+      name: "Military Post C",
+      location: "Border Area, Ladakh",
+      essentials: [
+        "Medical Supplies",
+        "Emergency Food",
+        "Communication Equipment",
+        "Thermal Blankets",
+      ],
+      emergency_type: "Military Emergency",
+    },
+  ];
+  const [weatherInfo, setWeatherInfo] = useState(null);
+  const [batteryLevel, setBatteryLevel] = useState(100);
+  const [altitude, setAltitude] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [deliveryHistory, setDeliveryHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % sampleData.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (qrData) {
+      setIsLoading(true);
+      const qrContent = {
+        droneId: qrData.droneId,
+        essentialId: qrData.essentialId,
+        timestamp: Date.now(),
+      };
+      const secretMessage = JSON.stringify(qrContent);
+      fetch(
+        `/integrations/qr-code/generatebasicbase64?data=${encodeURIComponent(
+          secretMessage
+        )}&size=200`
+      )
+        .then((response) => response.text())
+        .then((base64) => {
+          setQrCodeUrl(data:image/png;base64,${base64});
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error generating QR code:", error);
+          setScanError("Failed to generate QR code");
+          setIsLoading(false);
+        });
+    }
+  }, [qrData]);
+
+  useEffect(() => {
+    if (step === "tracking") {
+      setDroneStatus("dispatched");
+      setEstimatedTime("30 minutes");
+
+      const telemetryInterval = setInterval(() => {
+        setBatteryLevel((prev) => Math.max(prev - 1, 20));
+        setAltitude((prev) => (prev < 100 ? prev + 10 : 100));
+        setSpeed((prev) => (prev < 60 ? prev + 5 : 60));
+      }, 3000);
+      const statusInterval = setInterval(() => {
+        setDroneStatus((prev) => {
+          if (prev === "dispatched") return "in transit";
+          if (prev === "in transit") return "arriving";
+          if (prev === "arriving") return "delivered";
+          return prev;
+        });
+      }, 10000);
+
+      return () => {
+        clearInterval(statusInterval);
+        clearInterval(telemetryInterval);
+      };
+    }
+  }, [step]);
+
+  const handleScan = (data) => {
+    if (data) {
+      setScanError(null);
+      setIsLoading(true);
+      try {
+        const currentData = sampleData[currentIndex];
+        setQrData(currentData);
+        setSecretCode(
+          EMERG-${Math.random().toString(36).substring(2, 8).toUpperCase()}
+        );
+        setStep("details");
+      } catch (error) {
+        setScanError("Invalid emergency QR code format");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+  const handleSubmit = () => {
+    setStep("tracking");
+  };
+  const handleDeliveryComplete = () => {
+    const deliveryRecord = {
+      ...qrData,
+      deliveryTime: new Date().toLocaleString(),
+      status: "Completed",
+    };
+    setDeliveryHistory((prev) => [...prev, deliveryRecord]);
+    setStep("scan");
+  };
+
+  if (step === "scan") {
+    return (
+      <div className="min-h-screen bg-gray-100 p-4">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+          <h1 className="text-2xl font-bold text-center mb-6 font-roboto">
+            Emergency Kit Drone Delivery System
+          </h1>
+          <div className="flex justify-center mb-4">
+            <i className="fas fa-drone text-6xl text-red-500 hover:scale-110 transition-transform"></i>
+          </div>
+          <p className="text-center mb-4 font-roboto text-gray-600">
+            Scan emergency QR code to initiate drone delivery
+          </p>
+          {scanError && (
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+              {scanError}
+            </div>
+          )}
+          <button
+            onClick={() => handleScan(true)}
+            disabled={isLoading}
+            className={`w-full ${
+              isLoading ? "bg-gray-400" : "bg-red-500 hover:bg-red-600"
+            } text-white py-3 rounded-lg transition-colors font-roboto mb-4`}
+          >
+            {isLoading ? (
+              <i className="fas fa-spinner fa-spin mr-2"></i>
+            ) : (
+              "Scan Emergency QR Code"
+            )}
+          </button>
+          <button
+            onClick={() => setShowHistory(!showHistory)}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition-colors font-roboto"
+          >
+            {showHistory ? "Hide History" : "View Delivery History"}
+          </button>
+          {showHistory && (
+            <div className="mt-4 max-h-60 overflow-y-auto">
+              {deliveryHistory.map((delivery, index) => (
+                <div key={index} className="border-b p-2">
+                  <p className="font-roboto font-semibold">{delivery.name}</p>
+                  <p className="font-roboto text-sm text-gray-600">
+                    {delivery.deliveryTime}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (step === "details") {
+    return (
+      <div className="min-h-screen bg-gray-100 p-4">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold mb-4 font-roboto">
+            Delivery Details
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div>
+                <p className="font-semibold font-roboto">Drone ID:</p>
+                <p className="font-roboto">{qrData.droneId}</p>
+              </div>
+              <div>
+                <p className="font-semibold font-roboto">Essential ID:</p>
+                <p className="font-roboto">{qrData.essentialId}</p>
+              </div>
+              <div>
+                <p className="font-semibold font-roboto">Name:</p>
+                <p className="font-roboto">{qrData.name}</p>
+              </div>
+              <div>
+                <p className="font-semibold font-roboto">Location:</p>
+                <p className="font-roboto">{qrData.location}</p>
+              </div>
+              <div>
+                <p className="font-semibold font-roboto">Emergency Type:</p>
+                <p className="font-roboto text-red-600">
+                  {qrData.emergency_type}
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="font-semibold font-roboto">Essentials:</p>
+              <ul className="grid grid-cols-2 gap-2">
+                {qrData.essentials.map((item, index) => (
+                  <li
+                    key={index}
+                    className="font-roboto bg-gray-50 p-2 rounded flex items-center"
+                  >
+                    <i className="fas fa-box-open mr-2 text-gray-500"></i>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold font-roboto">Secret Code:</p>
+              <p className="font-roboto bg-gray-100 p-2 rounded text-center tracking-wider">
+                {secretCode}
+              </p>
+            </div>
+            {qrCodeUrl && (
+              <div className="flex flex-col items-center my-4 bg-white p-4 rounded-lg shadow-sm">
+                <p className="font-roboto text-sm text-gray-600 mb-2">
+                  Scan this QR code to verify delivery
+                </p>
+                <img
+                  src={qrCodeUrl}
+                  alt="Delivery QR Code"
+                  className="w-48 h-48 hover:scale-105 transition-transform"
+                />
+              </div>
+            )}
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors font-roboto flex items-center justify-center"
+            >
+              <i className="fas fa-paper-plane mr-2"></i>
+              Ready to Dispatch
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === "tracking") {
+    return (
+      <div className="min-h-screen bg-gray-100 p-4">
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold mb-4 font-roboto flex items-center">
+            <i className="fas fa-satellite text-blue-500 mr-2"></i>
+            Drone Tracking
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-roboto text-sm text-gray-600">Battery Level</p>
+              <div className="flex items-center">
+                <i
+                  className={`fas fa-battery-${
+                    Math.floor(batteryLevel / 25) * 25
+                  } text-${
+                    batteryLevel > 20 ? "green" : "red"
+                  }-500 text-xl mr-2`}
+                ></i>
+                <span className="font-roboto font-bold">{batteryLevel}%</span>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-roboto text-sm text-gray-600">Altitude</p>
+              <div className="flex items-center">
+                <i className="fas fa-mountain text-blue-500 text-xl mr-2"></i>
+                <span className="font-roboto font-bold">{altitude}m</span>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-roboto text-sm text-gray-600">Speed</p>
+              <div className="flex items-center">
+                <i className="fas fa-wind text-blue-500 text-xl mr-2"></i>
+                <span className="font-roboto font-bold">{speed}km/h</span>
+              </div>
+            </div>
+          </div>
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <p className="font-roboto text-lg">
+                Status:
+                <span
+                  className={`ml-2 ${
+                    droneStatus === "delivered"
+                      ? "text-green-600"
+                      : "text-blue-600"
+                  }`}
+                >
+                  {droneStatus.charAt(0).toUpperCase() + droneStatus.slice(1)}
+                </span>
+              </p>
+              <p className="font-roboto text-gray-600">
+                Estimated delivery time: {estimatedTime}
+              </p>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div
+                className={`h-2.5 rounded-full transition-all duration-1000 ${
+                  droneStatus === "dispatched"
+                    ? "w-1/4 bg-blue-600"
+                    : droneStatus === "in transit"
+                    ? "w-2/4 bg-blue-600"
+                    : droneStatus === "arriving"
+                    ? "w-3/4 bg-blue-600"
+                    : "w-full bg-green-600"
+                }`}
+              ></div>
+            </div>
+          </div>
+          <div className="w-full h-[450px] rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d31107.217107799628!2d78.87186059999999!3d12.946099799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1737571058994!5m2!1sen!2sin"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="hover:opacity-90 transition-opacity"
+            ></iframe>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <p className="font-roboto text-green-600 flex items-center">
+                <i className="fas fa-drone mr-2"></i>
+                Drone is {droneStatus} to {qrData.location}
+              </p>
+              <p className="font-roboto text-sm text-gray-600 mt-2">
+                Carrying {qrData.essentials.length} essential items
+              </p>
+            </div>
+
+            {droneStatus === "delivered" && (
+              <button
+                onClick={handleDeliveryComplete}
+                className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors font-roboto flex items-center justify-center"
+              >
+                <i className="fas fa-check-circle mr-2"></i>
+                Complete Delivery
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default MainComponent;

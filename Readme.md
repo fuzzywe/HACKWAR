@@ -1,3 +1,4 @@
+Demo(https://emergency.created.app/)
 
 **This is the project that I am most proud of which we named AI response drone for Search and Rescue. I am from kerala, a southern state in India. In 2018, a flood stuck the state resulted in several deaths and 140 people went missing.**
 
@@ -44,4 +45,34 @@
 
 
 ![WhatsApp Image 2025-01-23 at 11 17 18_d6771ebb](https://github.com/user-attachments/assets/a11868c6-06b2-465e-8728-8713ea436ab2)
+
+![WhatsApp Image 2025-01-23 at 11 15 39_bee19373](https://github.com/user-attachments/assets/a84bc009-4f6a-4018-854d-8773eb2444a8)
+
+
+![WhatsApp Image 2025-01-23 at 11 22 35_c7bc182a](https://github.com/user-attachments/assets/7d989bb0-55c8-4e19-9d58-20f637823029)
+
+![IMG-20250123-WA0030](https://github.com/user-attachments/assets/744a3aa4-3327-477f-879f-f87e941e38b3)
+
+![IMG-20250123-WA0031](https://github.com/user-attachments/assets/7cd42306-82b7-4473-86f1-5716573d9d15)
+
+![IMG-20250123-WA0032](https://github.com/user-attachments/assets/3ea895c2-8cd3-46ba-94cd-35be17ea1907)
+
+
+![IMG-20250123-WA0032](https://github.com/user-attachments/assets/0034532e-867a-4175-8793-b03c3b777de6)
+
+
+
+![IMG-20250123-WA0033](https://github.com/user-attachments/assets/2bc39b4c-d662-4fe9-b98a-376f7d1066d8)
+
+![IMG-20250123-WA0034](https://github.com/user-attachments/assets/1e8c986d-2bfa-4ea9-b744-2fbbe38ce393)
+
+
+
+[Autonomous drone for disaster relief supplies delivery (1).pdf](https://github.com/user-attachments/files/18614703/Autonomous.drone.for.disaster.relief.supplies.delivery.1.pdf)
+
+
+
+[Autonomous drone for disaster relief supplies delivery.pptx](https://github.com/user-attachments/files/18614704/Autonomous.drone.for.disaster.relief.supplies.delivery.pptx)
+
+
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authority Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Emergency Requests Dashboard</h1>
+        
+        <!-- User Requests Section -->
+        <div class="section-title">Active Emergency Requests</div>
+        <div id="requestsList" class="requests-list"></div>
+        
+        <!-- Drones Section -->
+        <div class="section-title">Available Drones</div>
+        <div id="dronesList" class="drones-list"></div>
+
+        <!-- Assignment Modal -->
+        <div id="assignmentModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Assign Drone</h2>
+                <div class="assignment-details">
+                    <div id="requestDetails"></div>
+                    <div id="droneDetails"></div>
+                </div>
+                <div id="droneMap" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+                <button onclick="confirmAssignment()" class="modal-btn">Confirm Assignment</button>
+            </div>
+        </div>
+    </div>
+    <script src="authority.js"></script>
+</body>
+</html>

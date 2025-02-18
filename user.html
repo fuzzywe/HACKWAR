@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Emergency Request</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+    <div class="user-container">
+        <nav class="top-nav">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <h2>SOS Emergency Request</h2>
+        </nav>
+
+        <form id="sosForm" class="sos-form">
+            <div class="form-progress">
+                <div class="progress-step active">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Info</span>
+                </div>
+                <div class="progress-step">
+                    <i class="fas fa-list"></i>
+                    <span>Requirements</span>
+                </div>
+                <div class="progress-step">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </div>
+            </div>
+
+            <div class="form-section active" id="section1">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                <button type="button" class="next-btn" onclick="nextSection(2)">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <div class="form-section" id="section2">
+                <div class="items-section">
+                    <div class="item-category">
+                        <h4><i class="fas fa-shopping-basket"></i> Groceries</h4>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="groceries" value="rice"> Rice</label>
+                            <label><input type="checkbox" name="groceries" value="milk"> Milk</label>
+                            <label><input type="checkbox" name="groceries" value="bread"> Bread</label>
+                            <label><input type="checkbox" name="groceries" value="eggs"> Eggs</label>
+                            <label><input type="checkbox" name="groceries" value="vegetables"> Vegetables</label>
+                            <label><input type="checkbox" name="groceries" value="fruits"> Fruits</label>
+                        </div>
+                    </div>
+
+                    <div class="item-category">
+                        <h4><i class="fas fa-medkit"></i> Medicine</h4>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="medicine" value="paracetamol"> Paracetamol</label>
+                            <label><input type="checkbox" name="medicine" value="antibiotics"> Antibiotics</label>
+                            <label><input type="checkbox" name="medicine" value="bandages"> Bandages</label>
+                            <label><input type="checkbox" name="medicine" value="firstaid"> First Aid Kit</label>
+                            <label><input type="checkbox" name="medicine" value="painkillers"> Pain Killers</label>
+                        </div>
+                    </div>
+
+                    <div class="item-category">
+                        <h4><i class="fas fa-tshirt"></i> Clothes</h4>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="clothes" value="tshirts"> T-Shirts</label>
+                            <label><input type="checkbox" name="clothes" value="pants"> Pants</label>
+                            <label><input type="checkbox" name="clothes" value="blankets"> Blankets</label>
+                            <label><input type="checkbox" name="clothes" value="warmclothes"> Warm Clothes</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additional">Additional Details</label>
+                        <textarea id="additional" rows="4" placeholder="Any specific requirements or emergency details..."></textarea>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="back-btn" onclick="prevSection(1)"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="button" class="next-btn" onclick="nextSection(3)">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="form-section" id="section3">
+                <div class="form-group">
+                    <label>Your Location</label>
+                    <div id="map" class="location-map"></div>
+                    <p id="locationStatus" class="location-status"></p>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="back-btn" onclick="prevSection(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="submit-btn">Send SOS Request <i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </form>
+
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Request Submitted Successfully!</h2>
+                <p>Your emergency request has been received. Help is on the way.</p>
+                <p>Request ID: <span id="requestId" class="request-id"></span></p>
+                <button onclick="window.location.href='index.html'" class="modal-btn">Return to Home</button>
+            </div>
+        </div>
+    </div>
+    <script src="user.js"></script>
+</body>
+</html>

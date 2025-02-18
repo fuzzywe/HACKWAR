@@ -7,6 +7,7 @@
 **It was very difficult for the search and rescue to go in person to the affected areas in search of stranded people from the flood. We were also part of support team by provided food and supplies to the affected areas. We were able to understand the difficulties in reaching to the affected area even after several days from the incident. These incidents motivated us to develop our project.**
 
 
+
 ![WhatsApp Image 2025-01-23 at 11 15 39_bee19373](https://github.com/user-attachments/assets/a84bc009-4f6a-4018-854d-8773eb2444a8)
 
 

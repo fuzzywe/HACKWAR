@@ -1,5 +1,7 @@
 [Demo](https://emergency.created.app/)
 
+
+
 **This is the project that I am most proud of which we named AI response drone for Search and Rescue. I am from kerala, a southern state in India. In 2018, a flood stuck the state resulted in several deaths and 140 people went missing.**
 
 **It was very difficult for the search and rescue to go in person to the affected areas in search of stranded people from the flood. We were also part of support team by provided food and supplies to the affected areas. We were able to understand the difficulties in reaching to the affected area even after several days from the incident. These incidents motivated us to develop our project.**

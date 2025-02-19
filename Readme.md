@@ -8,6 +8,8 @@
 
 to get the
 scan the qrcode
+
+
 ![WhatsApp Image 2025-02-18 at 23 19 03_98cadf71](https://github.com/user-attachments/assets/defa1d36-5147-4384-b862-9ecf8fbf3b78)
 
 
